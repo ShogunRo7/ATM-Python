@@ -1,0 +1,4 @@
+TO RUN IN LOCAL
+ - First clone this repository
+ - Install pwinput (it is only working on console)
+	- "pip install pwinput" (run in local)
