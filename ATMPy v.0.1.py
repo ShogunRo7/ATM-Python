@@ -129,11 +129,15 @@ def deposit(index):
     try :
         isFloat = isinstance(getDeposit, (float, int))
         if isFloat :
-            newBalance = float(currentBalance) + float(getDeposit)
-            listOfUser[index].currentBalance = float(newBalance)
-            print(f"\n     You successfully deposit Php {getDeposit}")
-            print(f"\n     Your current balance is : Php {listOfUser[index].currentBalance: .2f}")
-            receiptDeposit(transactionNumber, getDeposit, currentBalance, newBalance, index)
+            if float(getDeposit) > 0 :
+                newBalance = float(currentBalance) + float(getDeposit)
+                listOfUser[index].currentBalance = float(newBalance)
+                print(f"\n     You successfully deposit Php {getDeposit}")
+                print(f"\n     Your current balance is : Php {listOfUser[index].currentBalance: .2f}")
+                receiptDeposit(transactionNumber, getDeposit, currentBalance, newBalance, index)
+            else :
+                Error.negativeNumberNotAllowed()
+                goBackToDepositPage(index)
     except :
         Error.dataTypeChecker()
         goBackToDepositPage(index)
@@ -148,14 +152,18 @@ def withdraw(index):
     try :
         isFloat = isinstance(getWithdraw, (float, int))
         if isFloat :
-            if float(currentBalance) > float(getWithdraw):
-                newBalance = float(currentBalance) - float(getWithdraw)
-                listOfUser[index].currentBalance = float(newBalance)
-                print(f"\n     You successfully withdraw Php {getWithdraw}")
-                print(f"\n     Your current balance is : Php {listOfUser[index].currentBalance: .2f}")
-                receiptWithdraw(transactionNumber, getWithdraw, currentBalance, newBalance, index)
+            if float(getWithdraw) > 0 :
+                if float(currentBalance) > float(getWithdraw):
+                    newBalance = float(currentBalance) - float(getWithdraw)
+                    listOfUser[index].currentBalance = float(newBalance)
+                    print(f"\n     You successfully withdraw Php {getWithdraw}")
+                    print(f"\n     Your current balance is : Php {listOfUser[index].currentBalance: .2f}")
+                    receiptWithdraw(transactionNumber, getWithdraw, currentBalance, newBalance, index)
+                else :
+                    Error.notEnoughBalance()
+                    goBackToWithdrawPage(index)
             else :
-                Error.notEnoughBalance()
+                Error.negativeNumberNotAllowed()
                 goBackToWithdrawPage(index)
     except :
         Error.dataTypeChecker()

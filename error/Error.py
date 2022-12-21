@@ -27,3 +27,7 @@ class Error :
     @staticmethod
     def notEnoughBalance() :
         print("\n         Prompt: Not enough balance. Please try again.")
+
+    @staticmethod
+    def negativeNumberNotAllowed() :
+        print("\n         Prompt: Negative number is not allowed. Please try again.")
